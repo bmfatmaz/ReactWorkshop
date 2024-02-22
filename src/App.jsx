@@ -1,30 +1,46 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import ClassComp from './Components/ClassComp'
-import FuntionComp from './Components/FunctionComp'
-import Mounting from './lifeCycle/ClassComponents/Mounting'
-import Events from './Components/Events'
+import React, { Suspense, useEffect, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import ClassComp from "./Components/ClassComp";
+import FuntionComp from "./Components/FunctionComp";
+import Mounting from "./lifeCycle/ClassComponents/Mounting";
+// import Events from "./Components/Events";
+import { Route, Routes } from "react-router-dom";
+import FunctionComp from "./Components/FunctionComp";
+import NavigationBar from "./Components/Navbar";
+// import EventDetails from "./Components/EventDetails";
+const Events=React.lazy(()=> import("./Components/Events"))
+const EventDetails=React.lazy(()=> import("./Components/EventDetails"))
+
 function App() {
-
-  return(
+  
+  return (
     <>
-  <Events/>
+    <Suspense fallback={<p>loading..</p>}>
+    <NavigationBar/>
+     <Routes>
+      <Route path="/events">
+        <Route index element={<Events/>}/>
+        <Route path="details/:nom" element={<EventDetails/>}/>
+      </Route>
+      <Route path="*" element={<> <p>Not Found</p></>}/>
+     </Routes>
+     </Suspense>
     </>
-  )
+  );
   // const [{color, background}, setColor]= useState({color:"red", background: "purple"});
-//   useEffect(()=> console.log("mounting"),[])
-//   useEffect(()=> console.log("mounting and updating"),[color])
-//   useEffect(()=> console.log("chaque rerender"))
-//   return (
+  //   useEffect(()=> console.log("mounting"),[])
+  //   useEffect(()=> console.log("mounting and updating"),[color])
+  //   useEffect(()=> console.log("chaque rerender"))
+  //   return (
 
-// <div className="App">
-// <input onChange= {e=>setColor(current => ({...current,color:e.target.value}
-//  ))}/>
-// <h1>My favorite color is {color}!</h1>
-// </div>
-// );
+  // <div className="App">
+  // <input onChange= {e=>setColor(current => ({...current,color:e.target.value}
+  //  ))}/>
+  // <h1>My favorite color is {color}!</h1>
+  // </div>
+  // );
 
   // const [count, setCount] = useState(0)
   // const hello=()=>{
@@ -33,7 +49,7 @@ function App() {
   // var tab=[{nom:"Belhaj",prenom:"Fatma"},{nom:"Miniaoui",prenom:"Zahra"}]
   // return (
   //   <>
-    
+
   //   <Mounting name="test"/>
   //   {hello()}
   //   <ul>
@@ -41,7 +57,7 @@ function App() {
   //   tab.map((e)=>{
   //    return <li> {e.nom} {e.prenom}</li>
   //   })
-  //  } 
+  //  }
 
   //   </ul>
   //   <button onClick={()=>console.log("test")}>Click</button>
@@ -71,4 +87,4 @@ function App() {
   // )
 }
 
-export default App
+export default App;
