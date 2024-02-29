@@ -12,7 +12,10 @@ export default function NavigationBar() {
             <Nav className="me-auto">
               <NavLink to="events" 
               style={({isActive})=>({textDecoration:isActive?"underline":"none"})}>Events</NavLink>
+              <NavLink to="/events/Add" 
+              style={({isActive})=>({textDecoration:isActive?"underline":"none"})}>Add Event</NavLink>
             </Nav>
+           
           </Navbar.Collapse>
         </Container>
       </Navbar>

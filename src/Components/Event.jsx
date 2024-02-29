@@ -7,6 +7,9 @@ export default function Event(props) {
   const changeLike = () => {
     setEvent((pe) => ({ ...pe, like: !pe.like }));
   };
+  const deleteEvent = (id) => {
+    props.delete(id);
+  };
   const bookEvent = () => {
     props.fnAlert();
     setEvent((pe) => ({
@@ -33,6 +36,9 @@ export default function Event(props) {
           <Card.Text>Number of participants: {e.nbParticipants}</Card.Text>
           <Button variant="danger" onClick={changeLike}>
             {e.like == true ? "Like" : "Dislike"}
+          </Button>
+          <Button variant="danger" onClick={() => deleteEvent(e.id)}>
+            Delete
           </Button>
           <Button onClick={bookEvent} disabled={e.nbTickets === 0}>
             Buy

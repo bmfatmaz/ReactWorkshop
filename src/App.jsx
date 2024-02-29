@@ -9,6 +9,7 @@ import Mounting from "./lifeCycle/ClassComponents/Mounting";
 import { Route, Routes } from "react-router-dom";
 import FunctionComp from "./Components/FunctionComp";
 import NavigationBar from "./Components/Navbar";
+import AddEvent from "./Components/AddEvent";
 // import EventDetails from "./Components/EventDetails";
 const Events=React.lazy(()=> import("./Components/Events"))
 const EventDetails=React.lazy(()=> import("./Components/EventDetails"))
@@ -22,7 +23,8 @@ function App() {
      <Routes>
       <Route path="/events">
         <Route index element={<Events/>}/>
-        <Route path="details/:nom" element={<EventDetails/>}/>
+        <Route path="details/:id" element={<EventDetails/>}/>
+        <Route path="Add" element={<AddEvent/>}/>
       </Route>
       <Route path="*" element={<> <p>Not Found</p></>}/>
      </Routes>
