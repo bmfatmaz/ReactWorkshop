@@ -10,6 +10,7 @@ import { Route, Routes } from "react-router-dom";
 import FunctionComp from "./Components/FunctionComp";
 import NavigationBar from "./Components/Navbar";
 import AddEvent from "./Components/AddEvent";
+import UpdateEvent from "./Components/UpdateEvent";
 // import EventDetails from "./Components/EventDetails";
 const Events=React.lazy(()=> import("./Components/Events"))
 const EventDetails=React.lazy(()=> import("./Components/EventDetails"))
@@ -25,6 +26,7 @@ function App() {
         <Route index element={<Events/>}/>
         <Route path="details/:id" element={<EventDetails/>}/>
         <Route path="Add" element={<AddEvent/>}/>
+        <Route path="edit/:id" element={<UpdateEvent/>}/>
       </Route>
       <Route path="*" element={<> <p>Not Found</p></>}/>
      </Routes>

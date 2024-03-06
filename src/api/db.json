@@ -25,10 +25,20 @@
       "description": "desc",
       "img": "event3.jpg",
       "price": "2",
-      "nbTickets": "11",
-      "nbParticipants": 0,
+      "nbTickets": "16",
+      "nbParticipants": "5",
       "like": false,
       "id": 3
+    },
+    {
+      "name": "event ",
+      "description": "desc event",
+      "img": "placeholder.jpg",
+      "price": "45",
+      "nbTickets": "19",
+      "nbParticipants": "44",
+      "like": false,
+      "id": 4
     }
   ]
 }

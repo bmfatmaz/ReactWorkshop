@@ -1,8 +1,11 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
+
 export default function Event(props) {
+  const navigate = useNavigate();
+
   const [e, setEvent] = useState(props.event);
   const changeLike = () => {
     setEvent((pe) => ({ ...pe, like: !pe.like }));
@@ -39,6 +42,9 @@ export default function Event(props) {
           </Button>
           <Button variant="danger" onClick={() => deleteEvent(e.id)}>
             Delete
+          </Button>
+          <Button variant="success" onClick={() =>{navigate(`/events/edit/${e.id}`)} }>
+            Update
           </Button>
           <Button onClick={bookEvent} disabled={e.nbTickets === 0}>
             Buy

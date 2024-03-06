@@ -1,44 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { addEvent } from "../service/api";
-import { useNavigate } from "react-router-dom";
-export default function AddEvent() {
+import { editEvent, getallEvents } from "../service/api";
+import { useParams, useNavigate } from "react-router-dom";
+
+export default function UpdateEvent() {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [eventItem, setEventItem] = useState({
-    name: "",
-    description: "",
-    img: "",
-    price: 0,
-    nbTickets: 0,
-    nbParticipants: 0,
-    like: false,
-  });
+  const [ev, setEvent] = useState({});
+  useEffect(() => {
+    console.log(id);
+    const fetchEvent = async () => {
+      const event = await getallEvents(id);
+      setEvent(event.data);
+    };
+    fetchEvent();
+  }, []);
+
   const onInputChange = (e) => {
-    setEventItem({
-      ...eventItem,
+    setEvent({
+      ...ev,
       [e.target.name]: e.target.value,
     });
   };
+
   const onFileChange = (e) => {
     if (e.target.files.length > 0) {
       const fileName = e.target.files[0].name;
-      console.log("Selected file:", fileName);
-      setEventItem({
-        ...eventItem,
+      setEvent({
+        ...ev,
         img: fileName,
       });
     }
   };
-  const addE = () => {
-    const addEv = async () => {
-      await addEvent(eventItem);
+
+  const editE = () => {
+    const editEv = async () => {
+      await editEvent(ev.id, ev);
       navigate("/events");
     };
-    addEv();
+    editEv();
   };
+
   return (
     <Container style={{ marginTop: "30px" }}>
-      <h2>Add a new Event to your Event List</h2>
+      <h2>Modify {ev.name}</h2>
       <Form>
         <Form.Group className="mb-3">
           <Form.Label>Name</Form.Label>
@@ -46,7 +51,7 @@ export default function AddEvent() {
             name="name"
             type="text"
             placeholder="Enter a Name"
-            value={eventItem.name}
+            value={ev.name}
             onChange={(e) => onInputChange(e)}
           />
         </Form.Group>
@@ -57,7 +62,7 @@ export default function AddEvent() {
             rows={3}
             placeholder="Enter description "
             name="description"
-            value={eventItem.description}
+            value={ev.description}
             onChange={(e) => onInputChange(e)}
           />
         </Form.Group>
@@ -66,7 +71,7 @@ export default function AddEvent() {
           <Form.Control
             type="number"
             name="price"
-            value={eventItem.price}
+            value={ev.price}
             onChange={(e) => onInputChange(e)}
           />
         </Form.Group>
@@ -75,7 +80,7 @@ export default function AddEvent() {
           <Form.Control
             type="number"
             name="nbTickets"
-            value={eventItem.nbTickets}
+            value={ev.nbTickets}
             onChange={(e) => onInputChange(e)}
           />
         </Form.Group>
@@ -84,7 +89,7 @@ export default function AddEvent() {
           <Form.Control
             type="number"
             name="nbParticipants"
-            value={eventItem.nbParticipants}
+            value={ev.nbParticipants}
             onChange={(e) => onInputChange(e)}
           />
         </Form.Group>
@@ -96,8 +101,8 @@ export default function AddEvent() {
             onChange={(e) => onFileChange(e)}
           />
         </Form.Group>
-        <Button variant="primary" onClick={addE}>
-          Add an Event
+        <Button variant="primary" onClick={editE}>
+          Edit
         </Button>
         <Button variant="secondary">Cancel</Button>
       </Form>
