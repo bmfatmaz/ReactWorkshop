@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import api from "../service/api";
-
+import { addEvent } from "../service/api";
+import { useNavigate } from "react-router-dom";
 export default function AddEvent() {
+  const navigate = useNavigate();
   const [eventItem, setEventItem] = useState({
     name: "",
     description: "",
@@ -19,15 +20,19 @@ export default function AddEvent() {
     });
   };
   const onFileChange = (e) => {
-   console.log(e.target.file[0].name)
-    setEventItem({
-      ...eventItem,
-      img: e.target.file[0].name,
-    });
+    if (e.target.files.length > 0) {
+      const fileName = e.target.files[0].name;
+      console.log("Selected file:", fileName);
+      setEventItem({
+        ...eventItem,
+        img: fileName,
+      });
+    }
   };
-  const addEvent = () => {
+  const addE = () => {
     const addEv = async () => {
-       await api.addEvent(eventItem);
+      await addEvent(eventItem);
+      navigate("/events");
     };
     addEv();
   };
@@ -79,11 +84,10 @@ export default function AddEvent() {
           <Form.Control
             type="file"
             name="img"
-            
             onChange={(e) => onFileChange(e)}
           />
         </Form.Group>
-        <Button variant="primary" onClick={addEvent}>
+        <Button variant="primary" onClick={addE}>
           Add an Event
         </Button>
         <Button variant="secondary">Cancel</Button>

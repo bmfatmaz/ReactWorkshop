@@ -14,4 +14,4 @@ export const editEvent = async (id, event) => {
 export const deleteEvent = async (id) => {
   return await axios.delete(`${url}/${id}`);
 };
-export default { getallEvents, addEvent, editEvent, deleteEvent };
+export default [ getallEvents, addEvent, editEvent, deleteEvent ];

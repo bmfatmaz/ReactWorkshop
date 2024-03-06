@@ -3,7 +3,7 @@ import Event from "./Event";
 import { Alert, CardGroup, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import api from "../service/api";
+import { deleteEvent, getallEvents } from "../service/api";
 export default function Events(props) {
   const [showAlert, setAlert] = useState(false);
   const [listEvent, setListEvent] = useState([]);
@@ -20,13 +20,18 @@ export default function Events(props) {
     setAlert(true);
     setTimeout(() => setAlert(false), 3000);
   };
-  const deleteEvent = async (id) => {
-   await api.deleteEvent(id);
-   setListEvent(listEvent.filter((e)=>e.id!=id));
+  const deleteEventItem = async (id) => {
+    console.log(id);
+    await deleteEvent(id);
+
+    setListEvent({
+     
+      data: listEvent.data.filter((e) => e.id !== id)
+  });
   };
   useEffect(() => {
     const fetchList = async () => {
-      const events = await api.getallEvents();
+      const events = await getallEvents();
       setListEvent(events);
     };
     fetchList();
@@ -43,7 +48,14 @@ export default function Events(props) {
       {showWelcome && <Alert variant="success">Welcome</Alert>}
       <Row xs={1} md={3}>
         {listEvent.data?.map((e, i) => {
-          return <Event key={i} delete={deleteEvent} event={e} fnAlert={modifAlert} />;
+          return (
+            <Event
+              key={i}
+              delete={deleteEventItem}
+              event={e}
+              fnAlert={modifAlert}
+            />
+          );
         })}
       </Row>
       {showAlert && <Alert variant="success">You have booked an event</Alert>}

@@ -19,6 +19,16 @@
       "nbTickets": 4,
       "nbParticipants": 30,
       "like": false
+    },
+    {
+      "name": "event8",
+      "description": "desc",
+      "img": "event3.jpg",
+      "price": "2",
+      "nbTickets": "11",
+      "nbParticipants": 0,
+      "like": false,
+      "id": 3
     }
   ]
 }
