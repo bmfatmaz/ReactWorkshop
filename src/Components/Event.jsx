@@ -10,9 +10,7 @@ export default function Event(props) {
   const changeLike = () => {
     setEvent((pe) => ({ ...pe, like: !pe.like }));
   };
-  const deleteEvent = (id) => {
-    props.delete(id);
-  };
+
   const bookEvent = () => {
     props.fnAlert();
     setEvent((pe) => ({
@@ -40,7 +38,7 @@ export default function Event(props) {
           <Button variant="danger" onClick={changeLike}>
             {e.like == true ? "Like" : "Dislike"}
           </Button>
-          <Button variant="danger" onClick={() => deleteEvent(e.id)}>
+          <Button variant="danger" onClick={() => props.onDelete(e.id)}>
             Delete
           </Button>
           <Button variant="success" onClick={() =>{navigate(`/events/edit/${e.id}`)} }>

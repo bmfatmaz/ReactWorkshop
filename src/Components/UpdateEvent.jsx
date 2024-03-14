@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { editEvent, getallEvents } from "../service/api";
 import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateEventReducer } from "../redux/slices/eventSlice";
 
 export default function UpdateEvent() {
-  const { id } = useParams();
   const navigate = useNavigate();
+  const param = useParams();
+  const dispatch =  useDispatch();
+  const { id } = useParams();
+ 
   const [ev, setEvent] = useState({});
   useEffect(() => {
     console.log(id);
@@ -33,12 +38,19 @@ export default function UpdateEvent() {
     }
   };
 
-  const editE = () => {
-    const editEv = async () => {
-      await editEvent(ev.id, ev);
+  // const editE = () => {
+  //   const editEv = async () => {
+  //     await editEvent(ev.id, ev);
+  //     navigate("/events");
+  //   };
+  //   editEv();
+  // };
+  const editE=async () => {
+    const eventResult = await editEvent(param.id, ev);
+    dispatch(updateEventReducer(eventResult.data));
+    if (eventResult.status === 200) {
       navigate("/events");
-    };
-    editEv();
+    }
   };
 
   return (

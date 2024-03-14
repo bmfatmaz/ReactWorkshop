@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { addEvent } from "../service/api";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addEventReducer } from "../redux/slices/eventSlice";
 export default function AddEvent() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [eventItem, setEventItem] = useState({
     name: "",
     description: "",
@@ -29,12 +32,19 @@ export default function AddEvent() {
       });
     }
   };
-  const addE = () => {
-    const addEv = async () => {
-      await addEvent(eventItem);
+  // const addE = () => {
+  //   const addEv = async () => {
+  //     await addEvent(eventItem);
+  //     navigate("/events");
+  //   };
+  //   addEv();
+  // };
+  const addE=async () => {
+    const eventResult = await addEvent(eventItem);
+    dispatch(addEventReducer(eventResult.data));
+    if (eventResult.status === 201) {
       navigate("/events");
-    };
-    addEv();
+    }
   };
   return (
     <Container style={{ marginTop: "30px" }}>

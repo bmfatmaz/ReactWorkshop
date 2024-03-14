@@ -21,24 +21,14 @@
       "like": false
     },
     {
-      "name": "event8",
-      "description": "desc",
-      "img": "event3.jpg",
+      "name": "event",
+      "description": "event",
+      "img": "",
       "price": "2",
-      "nbTickets": "16",
-      "nbParticipants": "5",
+      "nbTickets": 0,
+      "nbParticipants": "4",
       "like": false,
       "id": 3
-    },
-    {
-      "name": "event ",
-      "description": "desc event",
-      "img": "placeholder.jpg",
-      "price": "45",
-      "nbTickets": "19",
-      "nbParticipants": "44",
-      "like": false,
-      "id": 4
     }
   ]
 }
